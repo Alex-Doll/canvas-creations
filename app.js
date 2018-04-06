@@ -1,1 +1,16 @@
-console.log("hello!");
+var express = require("express");
+var app = express();
+
+app.set("view engine", "ejs");
+
+app.get("/", function(req, res) {
+    res.render("landing");
+});
+
+app.get("/creations", function(req, res) {
+    res.render("creations");
+});
+
+app.listen(process.env.PORT, process.env.IP, function() {
+    console.log("THE CANVAS CREATIONS SERVER IS RUNNING!!!");
+});
