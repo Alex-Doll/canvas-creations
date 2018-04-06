@@ -1,7 +1,9 @@
 var express = require("express");
 var app = express();
+var bodyParser = require("body-parser");
 
 app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({extended: true}))
 
 
 
@@ -30,6 +32,17 @@ app.get("/", function(req, res) {
 
 app.get("/creations", function(req, res) {
     res.render("creations", {creations: creations_array});
+});
+
+app.get("/creations/new", function(req, res) {
+    res.render("new");
+});
+
+app.post("/creations", function(req, res) {
+    console.log("A POST HAS BEEN MADE TO CREATIONS INDEX");
+    console.log(req.body);
+    creations_array.push(req.body.creation);
+    res.redirect("/creations");
 });
 
 app.listen(process.env.PORT, process.env.IP, function() {

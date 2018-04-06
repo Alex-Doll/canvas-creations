@@ -1,0 +1,12 @@
+<% include ./partials/header %>
+
+<h1>Add A New Creation!</h1>
+
+<form action="/creations" method="POST">
+    <input type="text" name="creation[title]" placeholder="title">
+    <input type="text" name="creation[image_url]" placeholder="image url">
+    <input type="text" name="creation[website_url]" placeholder="website_url">
+    <input type="submit" value="Submit Creation">
+</form>
+
+<% include ./partials/footer %>
