@@ -9,6 +9,7 @@ mongoose.connect("mongodb://localhost/canvas_creations");
 
 // Schema
 var Creation = require("./models/creation");
+var Comment = require("./models/comment");
 
 // var creations_array = [
 //     {
