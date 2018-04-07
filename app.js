@@ -22,6 +22,16 @@ var creations_array = [
         title: "Creation 3",
         image_url: "https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
         website_url: "https://www.google.com/"
+    },
+    {
+        title: "Creation 4",
+        image_url: "https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        website_url: "https://www.google.com/"
+    },
+    {
+        title: "Creation 5",
+        image_url: "https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        website_url: "https://www.google.com/"
     }
 ];
 

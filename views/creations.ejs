@@ -1,13 +1,20 @@
 <% include ./partials/header %>
 
-<h1>THIS IS THE CREATIONS INDEX PAGE!!!</h1>
-
-<a href="/">Go Home</a>
-
-<% creations.forEach(function(creation) { %>
-    <h3><%= creation.title %></h3>
-    <img class="ui medium rounded image" src="<%= creation.image_url %>">
-    <a href="<%= creation.website_url %>" target="_blank">Website: <%= creation.title %></a>
-<% }) %>
+<div class="ui container">
+    <div class="ui message">
+        <h1>Canvas Creations</h1>
+        <h5>Exploring the wonders of the HTML canvas element</h5>
+    </div>
+    <div class="ui grid container">
+        <% creations.forEach(function(creation) { %>
+            <div class="sixteen wide mobile eight wide tablet four wide computer column">
+                <h3><%= creation.title %></h3>
+                <img class="ui medium rounded image" src="<%= creation.image_url %>">
+                <a href="<%= creation.website_url %>" target="_blank">Website: <%= creation.title %></a>
+            </div>
+        <% }) %>
+    </div>
+    <a href="/">Go Home</a>
+</div>
 
 <% include ./partials/footer %>
