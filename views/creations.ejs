@@ -22,8 +22,11 @@
                     <%= creation.title %>
                 </h3>
                 <div class="ui attached segment">
-                    <a class="ui fluid rounded image" href="<%= creation.website_url %>" target="_blank">
-                        <img class="ui fluid image" src="<%= creation.image_url %>">
+                    <a href="/creations/<%= creation._id %>">
+                        <img class="ui fluid rounded image" src="<%= creation.image_url %>">
+                    </a>
+                    <a href="<%= creation.website_url %>" target="_blank">
+                        Visit Website
                     </a>
                 </div>
             </div>

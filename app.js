@@ -78,6 +78,17 @@ app.post("/creations", function(req, res) {
     });
 });
 
+app.get("/creations/:creation_id", function(req, res) {
+    Creation.findById(req.params.creation_id, function(err, foundCreation) {
+        if (err) {
+            console.log(err);
+            res.redirect("/creations");
+        } else {
+            res.render("show", {creation: foundCreation});
+        }
+    });
+});
+
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("THE CANVAS CREATIONS SERVER IS RUNNING!!!");
 });
