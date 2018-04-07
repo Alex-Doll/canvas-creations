@@ -1,12 +1,22 @@
 <% include ./partials/header %>
 
-<h1>Add A New Creation!</h1>
-
-<form action="/creations" method="POST">
-    <input type="text" name="creation[title]" placeholder="title">
-    <input type="text" name="creation[image_url]" placeholder="image url">
-    <input type="text" name="creation[website_url]" placeholder="website_url">
-    <input type="submit" value="Submit Creation">
-</form>
+<div class="ui container">
+    <h1 class="ui center aligned header">Add A New Creation!</h1>
+    <form class="ui form" action="/creations" method="POST">
+        <div class="field">
+            <label>Title</label>
+            <input type="text" name="creation[title]" placeholder="title">
+        </div>
+        <div class="field">
+            <label>Image URL</label>
+            <input type="text" name="creation[image_url]" placeholder="image url">
+        </div>
+        <div class="field">
+            <label>Website URL</label>
+            <input type="text" name="creation[website_url]" placeholder="website_url">
+        </div>
+        <input class="ui violet button" type="submit" value="Submit Creation">
+    </form>
+</div>
 
 <% include ./partials/footer %>

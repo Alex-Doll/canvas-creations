@@ -49,8 +49,6 @@ app.get("/creations/new", function(req, res) {
 });
 
 app.post("/creations", function(req, res) {
-    console.log("A POST HAS BEEN MADE TO CREATIONS INDEX");
-    console.log(req.body);
     creations_array.push(req.body.creation);
     res.redirect("/creations");
 });
