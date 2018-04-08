@@ -10,3 +10,7 @@ form {
 .deleteButton {
     display: inline;
 }
+
+#flash-message {
+    margin-bottom: 1.5em;
+}
