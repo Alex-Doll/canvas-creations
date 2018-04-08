@@ -9,7 +9,7 @@
     
     <% creation.comments.forEach(function(comment) { %>
         <div class="ui attached segment">
-            <p class="ui sub header"><%= comment.author %></p>
+            <p class="ui sub header"><%= comment.author.username %></p>
             <p><%= comment.text %></p>
         </div>
     <% }) %>

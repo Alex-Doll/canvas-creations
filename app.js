@@ -35,118 +35,16 @@ app.use(function(req, res, next) {
 });
 
 
+var indexRoutes = require("./routes/index");
+var creationsRoutes = require("./routes/creations");
+var commentsRoutes = require("./routes/comments");
+var authRoutes = require("./routes/auth");
 
+app.use(indexRoutes);
+app.use(creationsRoutes);
+app.use(commentsRoutes);
+app.use(authRoutes);
 
-app.get("/", function(req, res) {
-    res.render("landing");
-});
-
-app.get("/creations", function(req, res) {
-    Creation.find({}, function(err, allCreations) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render("creations/creations", {creations: allCreations});
-        }
-    });
-});
-
-app.get("/creations/new", function(req, res) {
-    res.render("creations/new");
-});
-
-app.post("/creations", function(req, res) {
-    Creation.create(req.body.creation, function(err, newCreation) {
-        if (err) {
-            console.log(err);
-            res.redirect("/creations/new");
-        } else {
-            res.redirect("/creations");
-        }
-    });
-});
-
-app.get("/creations/:creation_id", function(req, res) {
-    Creation.findById(req.params.creation_id).populate("comments").exec(function(err, foundCreation) {
-        if (err) {
-            console.log(err);
-            res.redirect("/creations");
-        } else {
-            res.render("creations/show", {creation: foundCreation});
-        }
-    });
-});
-
-app.get("/creations/:creation_id/comments/new", isLoggedIn, function(req, res) {
-    Creation.findById(req.params.creation_id, function(err, foundCreation) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render("comments/new", {creation: foundCreation});
-        }
-    });
-});
-
-app.post("/creations/:creation_id/comments", isLoggedIn, function(req, res) {
-    Creation.findById(req.params.creation_id, function(err, foundCreation) {
-        if (err) {
-            console.log(err);
-        } else {
-            Comment.create(req.body.comment, function(err, newComment) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    foundCreation.comments.push(newComment);
-                    foundCreation.save();
-                    res.redirect("/creations/" + req.params.creation_id);
-                }
-            });
-        }
-    });
-});
-
-app.get("/register", function(req, res) {
-    res.render("auth/register");
-});
-
-app.post("/register", function(req, res) {
-    var newUser = new User({username: req.body.username});
-    User.register(newUser, req.body.password, function(err, user) {
-        if (err) {
-            console.log(err);
-            res.render("register");
-        } else {
-            passport.authenticate("local")(req, res, function() {
-                res.redirect("/creations");
-            });
-        }
-    });
-});
-
-app.get("/login", function(req, res) {
-    res.render("auth/login");
-});
-
-app.post("/login", passport.authenticate("local", 
-    {
-        successRedirect: "/creations",
-        failureRedirect: "/login"
-    }), function(req, res) {
-});
-
-app.get("/logout", function(req, res) {
-    req.logout();
-    res.redirect("/creations");
-});
-
-
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        next();
-    } else {
-        res.redirect("/login");
-    }
-}
 
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("THE CANVAS CREATIONS SERVER IS RUNNING!!!");
