@@ -1,7 +1,36 @@
-<% include ./partials/header %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Canvas Creations</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+        <link rel="stylesheet" href="/stylesheets/landing.css">
+    </head>
+    <body>
+        <div id="flash-message" class="ui container">
+            <% if (success && success.length > 0) { %>
+                <div class="ui positive message">
+                    <div class="header">
+                        <%= success %>
+                    </div>
+                </div>
+            <% } %>
+            <% if (error && error.length > 0) { %>
+                <div class="ui negative message">
+                    <div class="header">
+                        <%= error %>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        
+        <div id="landing-header" class="ui container">
+            <h1 class="ui center aligned icon header">
+                <i class="circular html5 icon"></i>
+                CANVAS CREATIONS
+            </h1>
+            <a class="ui large violet button" href="/creations">View All Creations</a>
+        </div>
 
-<h1>THIS IS THE HOME PAGE!</h1>
-
-<img src="https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg?auto=compress&cs=tinysrgb&h=350">
+        <img id="landing-image" src="https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg">
 
 <% include ./partials/footer %>
