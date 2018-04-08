@@ -6,6 +6,7 @@ var passport = require("passport");
 var localStrategy = require("passport-local");
 
 app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
 mongoose.connect("mongodb://localhost/canvas_creations");
 
