@@ -41,6 +41,26 @@ router.get("/creations/:creation_id", function(req, res) {
     });
 });
 
+router.get("/creations/:creation_id/edit", function(req, res) {
+    Creation.findById(req.params.creation_id, function(err, foundCreation) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("creations/edit", {creation: foundCreation});
+        }
+    });
+});
+
+router.put("/creations/:creation_id", function(req, res) {
+    Creation.findByIdAndUpdate(req.params.creation_id, req.body.creation, function(err, updatedCreation) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/creations/" + req.params.creation_id);
+        }
+    });
+});
+
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         next();
