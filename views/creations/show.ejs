@@ -4,6 +4,7 @@
     <h1 class="ui huge header"><%= creation.title %></h1>
     <img class="ui large rounded image" src="<%= creation.image_url %>">
     <a href="<%= creation.website_url %>" target="_blank">Visit Website!</a>
+    <p>Submitted by: <%= creation.author.username %></p>
     
     <a class="ui violet button" href="/creations/<%= creation._id %>/comments/new">Add Comment</a>
     

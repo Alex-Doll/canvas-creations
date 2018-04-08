@@ -3,7 +3,6 @@ var router = express.Router();
 var Creation = require("../models/creation");
 
 router.get("/creations", function(req, res) {
-    console.log(req.user);
     Creation.find({}, function(err, allCreations) {
         if (err) {
             console.log(err);
@@ -13,16 +12,19 @@ router.get("/creations", function(req, res) {
     });
 });
 
-router.get("/creations/new", function(req, res) {
+router.get("/creations/new", isLoggedIn, function(req, res) {
     res.render("creations/new");
 });
 
-router.post("/creations", function(req, res) {
+router.post("/creations", isLoggedIn, function(req, res) {
     Creation.create(req.body.creation, function(err, newCreation) {
         if (err) {
             console.log(err);
             res.redirect("/creations/new");
         } else {
+            newCreation.author.id = req.user._id;
+            newCreation.author.username = req.user.username;
+            newCreation.save()
             res.redirect("/creations");
         }
     });
@@ -39,5 +41,12 @@ router.get("/creations/:creation_id", function(req, res) {
     });
 });
 
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        next();
+    } else {
+        res.redirect("/login");
+    }
+}
 
 module.exports = router;
