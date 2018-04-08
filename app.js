@@ -19,8 +19,8 @@ app.use(require("express-session")({
 }));
 
 // Schema
-var Creation = require("./models/creation");
-var Comment = require("./models/comment");
+//var Creation = require("./models/creation");
+//var Comment = require("./models/comment");
 var User = require("./models/user");
 //var seedDB = require("./seeds.js");
 //seedDB();

@@ -24,7 +24,7 @@ router.post("/creations", isLoggedIn, function(req, res) {
         } else {
             newCreation.author.id = req.user._id;
             newCreation.author.username = req.user.username;
-            newCreation.save()
+            newCreation.save();
             res.redirect("/creations");
         }
     });
@@ -57,6 +57,16 @@ router.put("/creations/:creation_id", function(req, res) {
             console.log(err);
         } else {
             res.redirect("/creations/" + req.params.creation_id);
+        }
+    });
+});
+
+router.delete("/creations/:creation_id", function(req, res) {
+    Creation.findByIdAndRemove(req.params.creation_id, function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/creations");
         }
     });
 });

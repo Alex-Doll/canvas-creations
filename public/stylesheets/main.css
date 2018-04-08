@@ -6,3 +6,7 @@ form {
     width: 50%;
     margin: auto;
 }
+
+.deleteButton {
+    display: inline;
+}
