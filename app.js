@@ -10,12 +10,26 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
 mongoose.connect("mongodb://localhost/canvas_creations");
 
+app.use(require("express-session")({
+    secret: "Arya is the best pupper",
+    resave: false,
+    saveUninitialized: false
+}));
+
 // Schema
 var Creation = require("./models/creation");
 var Comment = require("./models/comment");
 var User = require("./models/user");
 //var seedDB = require("./seeds.js");
 //seedDB();
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
 
 
 app.get("/", function(req, res) {
