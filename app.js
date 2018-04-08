@@ -100,6 +100,24 @@ app.post("/creations/:creation_id/comments", function(req, res) {
     });
 });
 
+app.get("/register", function(req, res) {
+    res.render("auth/register");
+});
+
+app.post("/register", function(req, res) {
+    var newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, function(err, user) {
+        if (err) {
+            console.log(err);
+            res.render("register");
+        } else {
+            passport.authenticate("local")(req, res, function() {
+                res.redirect("/creations");
+            });
+        }
+    });
+});
+
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("THE CANVAS CREATIONS SERVER IS RUNNING!!!");
 });
