@@ -118,6 +118,17 @@ app.post("/register", function(req, res) {
     });
 });
 
+app.get("/login", function(req, res) {
+    res.render("auth/login");
+});
+
+app.post("/login", passport.authenticate("local", 
+    {
+        successRedirect: "/creations",
+        failureRedirect: "/login"
+    }), function(req, res) {
+});
+
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("THE CANVAS CREATIONS SERVER IS RUNNING!!!");
 });
