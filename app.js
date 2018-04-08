@@ -23,13 +23,13 @@ app.get("/creations", function(req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.render("creations", {creations: allCreations});
+            res.render("creations/creations", {creations: allCreations});
         }
     });
 });
 
 app.get("/creations/new", function(req, res) {
-    res.render("new");
+    res.render("creations/new");
 });
 
 app.post("/creations", function(req, res) {
@@ -49,7 +49,35 @@ app.get("/creations/:creation_id", function(req, res) {
             console.log(err);
             res.redirect("/creations");
         } else {
-            res.render("show", {creation: foundCreation});
+            res.render("creations/show", {creation: foundCreation});
+        }
+    });
+});
+
+app.get("/creations/:creation_id/comments/new", function(req, res) {
+    Creation.findById(req.params.creation_id, function(err, foundCreation) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("comments/new", {creation: foundCreation});
+        }
+    });
+});
+
+app.post("/creations/:creation_id/comments", function(req, res) {
+    Creation.findById(req.params.creation_id, function(err, foundCreation) {
+        if (err) {
+            console.log(err);
+        } else {
+            Comment.create(req.body.comment, function(err, newComment) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    foundCreation.comments.push(newComment);
+                    foundCreation.save();
+                    res.redirect("/creations/" + req.params.creation_id);
+                }
+            });
         }
     });
 });

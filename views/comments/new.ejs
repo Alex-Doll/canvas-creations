@@ -1,0 +1,18 @@
+<% include ../partials/header %>
+
+<div class="ui container">
+    <h1 class="ui center aligned header">Add Comment!</h1>
+    <form class="ui form" action="/creations/<%= creation._id %>/comments" method="POST">
+        <div class="field">
+            <label>Author</label>
+            <input type="text" name="comment[author]" placeholder="author">
+        </div>
+        <div class="field">
+            <label>Comment</label>
+            <input type="text" name="comment[text]" placeholder="text">
+        </div>
+        <input class="ui violet button" type="submit" value="Submit Comment">
+    </form>
+</div>
+
+<% include ../partials/footer %>

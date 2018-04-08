@@ -1,9 +1,11 @@
-<% include ./partials/header %>
+<% include ../partials/header %>
 
 <div class="ui container">
     <h1 class="ui huge header"><%= creation.title %></h1>
     <img class="ui large rounded image" src="<%= creation.image_url %>">
     <a href="<%= creation.website_url %>" target="_blank">Visit Website!</a>
+    
+    <a class="ui violet button" href="/creations/<%= creation._id %>/comments/new">Add Comment</a>
     
     <% creation.comments.forEach(function(comment) { %>
         <p><%= comment.author %></p>
@@ -11,4 +13,4 @@
     <% }) %>
 </div>
 
-<% include ./partials/footer %>
+<% include ../partials/footer %>
