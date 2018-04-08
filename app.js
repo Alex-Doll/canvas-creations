@@ -7,7 +7,9 @@ var localStrategy = require("passport-local");
 var methodOverride = require("method-override");
 var flash = require("connect-flash");
 
-mongoose.connect("mongodb://localhost/canvas_creations");
+// mongoose.connect("mongodb://localhost/canvas_creations");
+// mongoose.connect("mongodb://Rosco1010:password@ds239359.mlab.com:39359/canvas-creations");
+mongoose.connect(process.env.DATABASEURL);
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
