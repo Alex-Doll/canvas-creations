@@ -5,12 +5,16 @@ var mongoose = require("mongoose");
 var passport = require("passport");
 var localStrategy = require("passport-local");
 var methodOverride = require("method-override");
+var flash = require("connect-flash");
+
+mongoose.connect("mongodb://localhost/canvas_creations");
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
-mongoose.connect("mongodb://localhost/canvas_creations");
+app.use(flash());
+
 
 app.use(require("express-session")({
     secret: "Arya is the best pupper",
@@ -31,10 +35,14 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use(function(req, res, next) {
+
+function setLocals(req, res, next) {
     res.locals.currentUser = req.user;
+    res.locals.success = req.flash("error");
+    res.locals.error = req.flash("success");
     next();
-});
+}
+app.use(setLocals);
 
 
 var indexRoutes = require("./routes/index");
