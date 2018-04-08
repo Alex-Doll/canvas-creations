@@ -26,7 +26,7 @@ router.post("/creations", middleware.isLoggedIn, function(req, res) {
             newCreation.author.id = req.user._id;
             newCreation.author.username = req.user.username;
             newCreation.save();
-            req.flash("success", "Successfully added your creation!");
+            req.flash("success", "Successfully added a creation!");
             res.redirect("/creations");
         }
     });

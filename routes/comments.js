@@ -28,6 +28,7 @@ router.post("/creations/:creation_id/comments", middleware.isLoggedIn, function(
                     newComment.save();
                     foundCreation.comments.push(newComment);
                     foundCreation.save();
+                    req.flash("success", "Successfully added your comment!");
                     res.redirect("/creations/" + req.params.creation_id);
                 }
             });
@@ -50,6 +51,7 @@ router.put("/creations/:creation_id/comments/:comment_id", middleware.checkComme
         if (err) {
             console.log(err);
         } else {
+            req.flash("success", "Successfully edited your comment!");
             res.redirect("/creations/" + req.params.creation_id);
         }
     });
@@ -60,6 +62,7 @@ router.delete("/creations/:creation_id/comments/:comment_id", middleware.checkCo
         if (err) {
             console.log(err);
         } else {
+            req.flash("success", "Successfully removed your comment!");
             res.redirect("/creations/" + req.params.creation_id);
         }
     });
