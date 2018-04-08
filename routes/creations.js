@@ -26,6 +26,7 @@ router.post("/creations", middleware.isLoggedIn, function(req, res) {
             newCreation.author.id = req.user._id;
             newCreation.author.username = req.user.username;
             newCreation.save();
+            req.flash("success", "Successfully added your creation!");
             res.redirect("/creations");
         }
     });
@@ -57,6 +58,7 @@ router.put("/creations/:creation_id", middleware.checkCreationOwnership, functio
         if (err) {
             console.log(err);
         } else {
+            req.flash("success", "Successfully edited your creation!");
             res.redirect("/creations/" + req.params.creation_id);
         }
     });
@@ -67,6 +69,7 @@ router.delete("/creations/:creation_id", middleware.checkCreationOwnership, func
         if (err) {
             console.log(err);
         } else {
+            req.flash("success", "Successfully deleted your creation!");
             res.redirect("/creations");
         }
     });
