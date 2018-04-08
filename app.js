@@ -2,6 +2,8 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var passport = require("passport");
+var localStrategy = require("passport-local");
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -10,6 +12,7 @@ mongoose.connect("mongodb://localhost/canvas_creations");
 // Schema
 var Creation = require("./models/creation");
 var Comment = require("./models/comment");
+var User = require("./models/user");
 //var seedDB = require("./seeds.js");
 //seedDB();
 
