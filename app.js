@@ -10,44 +10,8 @@ mongoose.connect("mongodb://localhost/canvas_creations");
 // Schema
 var Creation = require("./models/creation");
 var Comment = require("./models/comment");
-
-// var creations_array = [
-//     {
-//         title: "Creation 1",
-//         image_url: "https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-//         website_url: "https://www.google.com/"
-//     },
-//     {
-//         title: "Creation 2",
-//         image_url: "https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-//         website_url: "https://www.google.com/"
-//     },
-//     {
-//         title: "Creation 3",
-//         image_url: "https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-//         website_url: "https://www.google.com/"
-//     },
-//     {
-//         title: "Creation 4",
-//         image_url: "https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-//         website_url: "https://www.google.com/"
-//     },
-//     {
-//         title: "Creation 5",
-//         image_url: "https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-//         website_url: "https://www.google.com/"
-//     }
-// ];
-
-// creations_array.forEach(function(creation) {
-//     Creation.create(creation, function(err, newCreation) {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log("Created New Creation: " + newCreation.title);
-//         }
-//     });
-// });
+//var seedDB = require("./seeds.js");
+//seedDB();
 
 
 app.get("/", function(req, res) {
@@ -80,7 +44,7 @@ app.post("/creations", function(req, res) {
 });
 
 app.get("/creations/:creation_id", function(req, res) {
-    Creation.findById(req.params.creation_id, function(err, foundCreation) {
+    Creation.findById(req.params.creation_id).populate("comments").exec(function(err, foundCreation) {
         if (err) {
             console.log(err);
             res.redirect("/creations");

@@ -4,6 +4,11 @@
     <h1 class="ui huge header"><%= creation.title %></h1>
     <img class="ui large rounded image" src="<%= creation.image_url %>">
     <a href="<%= creation.website_url %>" target="_blank">Visit Website!</a>
+    
+    <% creation.comments.forEach(function(comment) { %>
+        <p><%= comment.author %></p>
+        <p><%= comment.text %></p>
+    <% }) %>
 </div>
 
 <% include ./partials/footer %>
