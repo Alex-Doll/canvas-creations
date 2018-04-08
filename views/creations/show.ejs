@@ -4,10 +4,13 @@
     <h1 class="ui huge header"><%= creation.title %></h1>
     <img class="ui large rounded image" src="<%= creation.image_url %>">
     <a href="<%= creation.website_url %>" target="_blank">Visit Website!</a>
-    <a class="ui yellow button" href="/creations/<%= creation._id %>/edit">Edit</a>
-    <form class="deleteButton" action="/creations/<%= creation._id %>?_method=DELETE" method="POST">
-        <button class="ui red button">Delete</button>
-    </form>
+    <% if (currentUser && creation.author.id.equals(currentUser._id)) { %>
+        <a class="ui yellow button" href="/creations/<%= creation._id %>/edit">Edit</a>
+        <form class="deleteButton" action="/creations/<%= creation._id %>?_method=DELETE" method="POST">
+            <button class="ui red button">Delete</button>
+        </form>
+    <% } %>
+    
     <p>Submitted by: <%= creation.author.username %></p>
     
     <a class="ui violet button" href="/creations/<%= creation._id %>/comments/new">Add Comment</a>
@@ -16,10 +19,12 @@
         <div class="ui attached segment">
             <p class="ui sub header"><%= comment.author.username %></p>
             <p><%= comment.text %></p>
-            <a class="ui yellow button" href="/creations/<%= creation._id %>/comments/<%= comment._id %>/edit">Edit</a>
-            <form class="deleteButton" action="/creations/<%= creation._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                <button class="ui red button">Delete</button>
-            </form>
+            <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+                <a class="ui yellow button" href="/creations/<%= creation._id %>/comments/<%= comment._id %>/edit">Edit</a>
+                <form class="deleteButton" action="/creations/<%= creation._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                    <button class="ui red button">Delete</button>
+                </form>
+            <% } %>
         </div>
     <% }) %>
 </div>

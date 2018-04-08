@@ -41,7 +41,7 @@ router.get("/creations/:creation_id", function(req, res) {
     });
 });
 
-router.get("/creations/:creation_id/edit", function(req, res) {
+router.get("/creations/:creation_id/edit", checkCreationOwnership, function(req, res) {
     Creation.findById(req.params.creation_id, function(err, foundCreation) {
         if (err) {
             console.log(err);
@@ -51,7 +51,7 @@ router.get("/creations/:creation_id/edit", function(req, res) {
     });
 });
 
-router.put("/creations/:creation_id", function(req, res) {
+router.put("/creations/:creation_id", checkCreationOwnership, function(req, res) {
     Creation.findByIdAndUpdate(req.params.creation_id, req.body.creation, function(err, updatedCreation) {
         if (err) {
             console.log(err);
@@ -61,7 +61,7 @@ router.put("/creations/:creation_id", function(req, res) {
     });
 });
 
-router.delete("/creations/:creation_id", function(req, res) {
+router.delete("/creations/:creation_id", checkCreationOwnership, function(req, res) {
     Creation.findByIdAndRemove(req.params.creation_id, function(err) {
         if (err) {
             console.log(err);
@@ -76,6 +76,23 @@ function isLoggedIn(req, res, next) {
         next();
     } else {
         res.redirect("/login");
+    }
+}
+
+function checkCreationOwnership(req, res, next) {
+    if (req.isAuthenticated()) {
+        Creation.findById(req.params.creation_id, function(err, foundCreation) {
+            if (err || !foundCreation) {
+                console.log(err);
+                res.redirect("/creations");
+            } else if (foundCreation.author.id.equals(req.user._id)) {
+                next();
+            } else {
+                res.redirect("/creations");
+            }
+        });
+    } else {
+        res.redirect("/creations");
     }
 }
 
