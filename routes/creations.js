@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Creation = require("../models/creation");
+var middleware = require("../middleware");
 
 router.get("/creations", function(req, res) {
     Creation.find({}, function(err, allCreations) {
@@ -12,11 +13,11 @@ router.get("/creations", function(req, res) {
     });
 });
 
-router.get("/creations/new", isLoggedIn, function(req, res) {
+router.get("/creations/new", middleware.isLoggedIn, function(req, res) {
     res.render("creations/new");
 });
 
-router.post("/creations", isLoggedIn, function(req, res) {
+router.post("/creations", middleware.isLoggedIn, function(req, res) {
     Creation.create(req.body.creation, function(err, newCreation) {
         if (err) {
             console.log(err);
@@ -41,7 +42,7 @@ router.get("/creations/:creation_id", function(req, res) {
     });
 });
 
-router.get("/creations/:creation_id/edit", checkCreationOwnership, function(req, res) {
+router.get("/creations/:creation_id/edit", middleware.checkCreationOwnership, function(req, res) {
     Creation.findById(req.params.creation_id, function(err, foundCreation) {
         if (err) {
             console.log(err);
@@ -51,7 +52,7 @@ router.get("/creations/:creation_id/edit", checkCreationOwnership, function(req,
     });
 });
 
-router.put("/creations/:creation_id", checkCreationOwnership, function(req, res) {
+router.put("/creations/:creation_id", middleware.checkCreationOwnership, function(req, res) {
     Creation.findByIdAndUpdate(req.params.creation_id, req.body.creation, function(err, updatedCreation) {
         if (err) {
             console.log(err);
@@ -61,7 +62,7 @@ router.put("/creations/:creation_id", checkCreationOwnership, function(req, res)
     });
 });
 
-router.delete("/creations/:creation_id", checkCreationOwnership, function(req, res) {
+router.delete("/creations/:creation_id", middleware.checkCreationOwnership, function(req, res) {
     Creation.findByIdAndRemove(req.params.creation_id, function(err) {
         if (err) {
             console.log(err);
@@ -71,29 +72,5 @@ router.delete("/creations/:creation_id", checkCreationOwnership, function(req, r
     });
 });
 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        next();
-    } else {
-        res.redirect("/login");
-    }
-}
-
-function checkCreationOwnership(req, res, next) {
-    if (req.isAuthenticated()) {
-        Creation.findById(req.params.creation_id, function(err, foundCreation) {
-            if (err || !foundCreation) {
-                console.log(err);
-                res.redirect("/creations");
-            } else if (foundCreation.author.id.equals(req.user._id)) {
-                next();
-            } else {
-                res.redirect("/creations");
-            }
-        });
-    } else {
-        res.redirect("/creations");
-    }
-}
 
 module.exports = router;

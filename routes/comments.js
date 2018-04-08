@@ -2,8 +2,9 @@ var express = require("express");
 var router = express.Router();
 var Creation = require("../models/creation");
 var Comment = require("../models/comment");
+var middleware = require("../middleware");
 
-router.get("/creations/:creation_id/comments/new", isLoggedIn, function(req, res) {
+router.get("/creations/:creation_id/comments/new", middleware.isLoggedIn, function(req, res) {
     Creation.findById(req.params.creation_id, function(err, foundCreation) {
         if (err) {
             console.log(err);
@@ -13,7 +14,7 @@ router.get("/creations/:creation_id/comments/new", isLoggedIn, function(req, res
     });
 });
 
-router.post("/creations/:creation_id/comments", isLoggedIn, function(req, res) {
+router.post("/creations/:creation_id/comments", middleware.isLoggedIn, function(req, res) {
     Creation.findById(req.params.creation_id, function(err, foundCreation) {
         if (err) {
             console.log(err);
@@ -34,7 +35,7 @@ router.post("/creations/:creation_id/comments", isLoggedIn, function(req, res) {
     });
 });
 
-router.get("/creations/:creation_id/comments/:comment_id/edit", checkCommentOwnership, function(req, res) {
+router.get("/creations/:creation_id/comments/:comment_id/edit", middleware.checkCommentOwnership, function(req, res) {
     Comment.findById(req.params.comment_id, function(err, foundComment) {
         if (err) {
             console.log(err);
@@ -44,7 +45,7 @@ router.get("/creations/:creation_id/comments/:comment_id/edit", checkCommentOwne
     });
 });
 
-router.put("/creations/:creation_id/comments/:comment_id", checkCommentOwnership, function(req, res) {
+router.put("/creations/:creation_id/comments/:comment_id", middleware.checkCommentOwnership, function(req, res) {
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment) {
         if (err) {
             console.log(err);
@@ -54,7 +55,7 @@ router.put("/creations/:creation_id/comments/:comment_id", checkCommentOwnership
     });
 });
 
-router.delete("/creations/:creation_id/comments/:comment_id", checkCommentOwnership, function(req, res) {
+router.delete("/creations/:creation_id/comments/:comment_id", middleware.checkCommentOwnership, function(req, res) {
     Comment.findByIdAndRemove(req.params.comment_id, function(err) {
         if (err) {
             console.log(err);
@@ -64,29 +65,5 @@ router.delete("/creations/:creation_id/comments/:comment_id", checkCommentOwners
     });
 });
 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        next();
-    } else {
-        res.redirect("/login");
-    }
-}
-
-function checkCommentOwnership(req, res, next) {
-    if (req.isAuthenticated()) {
-        Comment.findById(req.params.comment_id, function(err, foundComment) {
-            if (err || !foundComment) {
-                console.log(err);
-                res.redirect("/creations");
-            } else if (foundComment.author.id.equals(req.user._id)) {
-                next();
-            } else {
-                res.redirect("/creations");
-            }
-        });
-    } else {
-        res.redirect("/creations");
-    }
-}
 
 module.exports = router;
