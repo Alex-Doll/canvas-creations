@@ -16,6 +16,10 @@
         <div class="ui attached segment">
             <p class="ui sub header"><%= comment.author.username %></p>
             <p><%= comment.text %></p>
+            <a class="ui yellow button" href="/creations/<%= creation._id %>/comments/<%= comment._id %>/edit">Edit</a>
+            <form class="deleteButton" action="/creations/<%= creation._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                <button class="ui red button">Delete</button>
+            </form>
         </div>
     <% }) %>
 </div>

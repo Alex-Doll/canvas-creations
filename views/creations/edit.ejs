@@ -1,7 +1,7 @@
 <% include ../partials/header %>
 
 <div class="ui container">
-    <h1 class="ui center aligned header">Add A New Creation!</h1>
+    <h1 class="ui center aligned header">Edit Creation!</h1>
     <form class="ui form" action="/creations/<%= creation._id %>?_method=PUT" method="POST">
         <div class="field">
             <label>Title</label>
@@ -15,7 +15,7 @@
             <label>Website URL</label>
             <input type="text" name="creation[website_url]" value="<%= creation.website_url %>">
         </div>
-        <input class="ui violet button" type="submit" value="Submit Creation">
+        <input class="ui violet button" type="submit" value="Edit Creation">
     </form>
 </div>
 

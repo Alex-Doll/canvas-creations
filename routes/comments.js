@@ -34,6 +34,36 @@ router.post("/creations/:creation_id/comments", isLoggedIn, function(req, res) {
     });
 });
 
+router.get("/creations/:creation_id/comments/:comment_id/edit", function(req, res) {
+    Comment.findById(req.params.comment_id, function(err, foundComment) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("comments/edit", {creation_id: req.params.creation_id, comment: foundComment});
+        }
+    });
+});
+
+router.put("/creations/:creation_id/comments/:comment_id", function(req, res) {
+    Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/creations/" + req.params.creation_id);
+        }
+    });
+});
+
+router.delete("/creations/:creation_id/comments/:comment_id", function(req, res) {
+    Comment.findByIdAndRemove(req.params.comment_id, function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/creations/" + req.params.creation_id);
+        }
+    });
+});
+
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         next();
