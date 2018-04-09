@@ -2,15 +2,23 @@
     margin-bottom: 1.5em;
 }
 
-body {
+html, body {
     background-color: #000;
+    margin: 0;
+    padding: 0;
+    height: 0;
 }
 
 #landing-header {
     z-index: 1;
+    margin: auto;
     position: relative;
     text-align: center;
-    padding-top: 40vh;
+    padding-top: 20vh;
+}
+
+#landing-icon-header {
+    font-size: 4rem;
 }
 
 #landing-image {
