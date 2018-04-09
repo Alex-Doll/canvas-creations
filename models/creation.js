@@ -4,6 +4,7 @@ var creationSchema = new mongoose.Schema({
     title: String,
     image_url: String,
     website_url: String,
+    description: String,
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

@@ -15,3 +15,7 @@ form {
 #flash-message {
     margin-bottom: 1.5em;
 }
+
+.ui.items>.item.creation {
+    margin: 2em 0px;
+}
