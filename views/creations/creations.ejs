@@ -15,7 +15,7 @@
             </h1>
         </div>
     </div>
-    <div class="ui items container">
+    <div class="ui divided very relaxed items container">
         <% creations.forEach(function(creation) { %>
             <div class="creation item">
                 <div class="image">
@@ -34,8 +34,8 @@
                         <p><%= creation.description %></p>
                     </div>
                     <div class="extra">
-                        <a href="/creations/<%= creation._id %>">
-                            More
+                        <a class="ui right floated" href="/creations/<%= creation._id %>">
+                            Show More
                         </a>
                     </div>
                 </div>

@@ -1,32 +1,59 @@
 <% include ../partials/header %>
 
-<div class="ui container">
-    <h1 class="ui huge header"><%= creation.title %></h1>
-    <img class="ui large rounded image" src="<%= creation.image_url %>">
-    <a href="<%= creation.website_url %>" target="_blank">Visit Website!</a>
-    <% if (currentUser && creation.author.id.equals(currentUser._id)) { %>
-        <a class="ui yellow button" href="/creations/<%= creation._id %>/edit">Edit</a>
-        <form class="deleteButton" action="/creations/<%= creation._id %>?_method=DELETE" method="POST">
-            <button class="ui red button">Delete</button>
-        </form>
-    <% } %>
-    
-    <p>Submitted by: <%= creation.author.username %></p>
-    
-    <a class="ui violet button" href="/creations/<%= creation._id %>/comments/new">Add Comment</a>
-    
-    <% creation.comments.forEach(function(comment) { %>
-        <div class="ui attached segment">
-            <p class="ui sub header"><%= comment.author.username %></p>
-            <p><%= comment.text %></p>
-            <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
-                <a class="ui yellow button" href="/creations/<%= creation._id %>/comments/<%= comment._id %>/edit">Edit</a>
-                <form class="deleteButton" action="/creations/<%= creation._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                    <button class="ui red button">Delete</button>
-                </form>
-            <% } %>
+<div class="ui grid container">
+    <div class="four wide tablet column">
+        <div class="ui segments">
+            <div class="ui segment">
+                <strong><a href="<%= creation.website_url %>" target="_blank">Visit <%= creation.title %>'s Website!</a></strong>
+            </div>
+            <div class="ui segment">
+                <p><em>Submitted by: <%= creation.author.username %></em></p>
+            </div>
         </div>
-    <% }) %>
+    </div>
+    <div class="twelve wide tablet column">
+        <div class="ui fluid card">
+            <div class="image">
+                <img class="ui large image" src="<%= creation.image_url %>">
+            </div>
+            <div class="content">
+                <h1 class="header"><%= creation.title %></h1>
+                <div class="description">
+                    <p><%= creation.description %></p>
+                </div>
+            </div>
+            <div class="extra content">
+                <% if (currentUser && creation.author.id.equals(currentUser._id)) { %>
+                    <form class="deleteButton" action="/creations/<%= creation._id %>?_method=DELETE" method="POST">
+                        <button class="mini ui red right floated button">Delete</button>
+                    </form>
+                    <a class="mini ui yellow right floated button" href="/creations/<%= creation._id %>/edit">Edit</a>
+                <% } %>
+                <a class="ui mini violet right floated button" href="/creations/<%= creation._id %>/comments/new">Add Comment</a>
+            </div>
+        </div>
+        <div class="ui fluid comments">
+            <h3 class="ui dividing header">Comments</h3>
+            <% creation.comments.forEach(function(comment) { %>
+                <div class="comment">
+                    <div class="content">
+                        <p class="author"><%= comment.author.username %></p>
+                        <div class="text">
+                            <p><%= comment.text %></p>
+                        </div>
+                        <div class="actions">
+                            <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+                                <a class="mini ui yellow button" href="/creations/<%= creation._id %>/comments/<%= comment._id %>/edit">Edit</a>
+                                <form class="deleteButton" action="/creations/<%= creation._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                                    <button class="mini ui red button">Delete</button>
+                                </form>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
 </div>
 
 <% include ../partials/footer %>
