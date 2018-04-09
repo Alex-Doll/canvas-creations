@@ -21,6 +21,7 @@ This site was built and styled from the ground up using using the following tech
 - Node.js
 - Express
 - EJS (view engine)
+- Mongoose
 - Passport
 - Semantic-UI
 - Connect-flash
