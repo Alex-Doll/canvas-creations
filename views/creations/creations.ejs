@@ -1,9 +1,9 @@
 <% include ../partials/header %>
 
 <div class="ui container">
-    <div id="jumbotron" class="ui huge message">
+    <div id="jumbotron" class="ui inverted vertical masthead center aligned message">
         <div class="ui container">
-            <h1 class="ui massive header">
+            <h1 class="ui massive inverted header">
                 <i class="html5 icon"></i>
                 <div class="content">
                     Canvas Creations
@@ -15,19 +15,29 @@
             </h1>
         </div>
     </div>
-    <div class="ui grid container">
+    <div class="ui items container">
         <% creations.forEach(function(creation) { %>
-            <div class="sixteen wide mobile eight wide tablet four wide computer column">
-                <h3 class="ui top attached header">
-                    <%= creation.title %>
-                </h3>
-                <div class="ui attached segment">
+            <div class="item">
+                <div class="image">
                     <a href="/creations/<%= creation._id %>">
                         <img class="ui fluid rounded image" src="<%= creation.image_url %>">
                     </a>
-                    <a href="<%= creation.website_url %>" target="_blank">
-                        Visit Website
+                </div>
+                <div class="content">
+                    <a class="header" href="/creations/<%= creation._id %>">
+                        <%= creation.title %>
                     </a>
+                    <div class="meta">
+                        <span>Description</span>
+                    </div>
+                    <div class="description">
+                        <p>Lorem ipsum</p>
+                    </div>
+                    <div class="extra">
+                        <a href="<%= creation.website_url %>" target="_blank">
+                            Visit Website
+                        </a>
+                    </div>
                 </div>
             </div>
         <% }) %>
