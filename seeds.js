@@ -1,3 +1,5 @@
+// Seed the local database for use with testing CRUD operations
+
 var mongoose = require("mongoose");
 var Creation = require("./models/creation");
 var Comment = require("./models/comment");
