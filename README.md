@@ -1,9 +1,9 @@
-## Canvas Creations
-# A full-scale dynamic webapplication built to showcase HTML5 Canvas projects from different users
+# Canvas Creations
+## A full-scale dynamic webapplication built to showcase HTML5 Canvas projects from different users
 
 This site was built and styled from the ground up using using the following techniques and features. The site has also been integrated to a live website hosted on heroku using mLab as the mongoDB solution. Check it out in the link above!
 
-# Noteable Features
+## Noteable Features
 - RESTful routing convention followed for all routes
 - Custom middleware in addition to the npm package passport for local authentical
 - All CRUD operations available for both creations (posts) and comments linked to those creations
@@ -17,7 +17,7 @@ This site was built and styled from the ground up using using the following tech
 - Both Creations and Comments are associated with the User who created them
 
 
-# Notable Technologies
+## Notable Technologies
 - Node.js
 - Express
 - EJS (view engine)
