@@ -5,7 +5,7 @@
     <form class="ui form" action="/creations/<%= creation._id %>/comments" method="POST">
         <div class="field">
             <label>Comment</label>
-            <input type="text" name="comment[text]" placeholder="text">
+            <textarea type="text" name="comment[text]" placeholder="text"></textarea>
         </div>
         <input class="ui violet button" type="submit" value="Submit Comment">
     </form>
